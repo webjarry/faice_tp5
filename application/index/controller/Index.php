@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 
+use think\facade\Request;
 class Index extends Base
 {
     public function index()
@@ -15,7 +16,7 @@ class Index extends Base
             'Model'      =>  'Index'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->show(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->show(Request::param());
     }
 
 }
