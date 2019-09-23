@@ -16,7 +16,7 @@ class Goods extends Model
         $result = $this->where(['id'   =>  $data['id']])->find();
 
         if ($result) {
-            return respone($result);
+            return response($result);
         }
         
         return error(201, '没有查询到该商品!');
@@ -26,18 +26,13 @@ class Goods extends Model
      * 获取商品列表
      */
     function showGoodsList ($data) {
-
-        $map = [
-            'status'    =>  1
-        ];
-        
         $result = $this->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
 
         if ($result) {
-            return respone($result);
+            return response($result);
         }
 
-        return error();
+        return error(201, '没有查询到该商品!');
     }
 
 }

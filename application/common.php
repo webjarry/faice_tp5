@@ -11,20 +11,23 @@
 
 // 应用公共文件
 
-function respone ($data = [], $message = "请求成功!",  $status = 200) {
-    return array(
+function response ($data = [], $message = "请求成功!",  $status = 200) {
+    $res = array(
         'status'    =>  $status,
         'message'   =>  $message,
         'data'  =>  $data
     );
+    return json($res);
+
 }
 
-function error ($status = 201, $message = "请求失败!", $data = null) {
-    return array(
+function error ($status = 201, $message = "请求失败!",$data = null)  {
+   $res = array(
         'status'    =>  $status,
         'message'   =>  $message,
         'data'  =>  $data
     );
+    return json($res);
 }
 
 

@@ -1,8 +1,7 @@
 <?php
 namespace app\admin\controller;
 
-use think\Loader;
-use think\Request;
+use think\Facade\Request;
 
 class Goods extends Base
 {
@@ -12,8 +11,9 @@ class Goods extends Base
             'Validate'   =>  'Goods.page',
             'Model'      =>  'Goods'
         ]);
-
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->showGoodsList(Request::instance()->param());
+//        var_dump($respone);
+//        die;
+        return $respone['status'] ? $respone['data']->showGoodsList(Request::param()) : $respone['data'];
     }
 
     public function info ()
@@ -23,7 +23,7 @@ class Goods extends Base
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->infoGoodsItem(Request::instance()->param());
+        return $respone['status'] ? $respone['data']->infoGoodsItem(Request::param()) : $respone['data'];
     }
 
     public function add ()

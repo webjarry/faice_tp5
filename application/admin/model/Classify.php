@@ -16,7 +16,7 @@ class Classify extends Model
         $result = $this->insert($data);
 
         if ($result) {
-            return respone($result);
+            return response($result);
         }
         
         return error(201, '没有查询到该商品!');
@@ -30,7 +30,7 @@ class Classify extends Model
         $result = $this->where(['id' =>  $data['id']])->update($data);
 
         if ($result) {
-            return respone();
+            return response();
         }
         
         return error(201, '产品更新失败，产品不存在或者没有更新任何内容!');
@@ -44,7 +44,7 @@ class Classify extends Model
         $result = $this->where(['id'   =>  $data['id']])->delete();
 
         if ($result) {
-            return respone(null, '产品删除成功!');
+            return response(null, '产品删除成功!');
         }
         
         return error(201, '没有找到商品或者商品已经被删除!');

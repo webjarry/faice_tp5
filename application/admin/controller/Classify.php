@@ -1,8 +1,7 @@
 <?php
 namespace app\admin\controller;
 
-use think\Loader;
-use think\Request;
+use think\Facade\Request;
 
 class Classify extends Base
 {
@@ -12,7 +11,7 @@ class Classify extends Base
             'Model'      =>  'Classify'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->addClassify(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->addClassify(Request::param());
     }
 
     public function set ()
@@ -22,7 +21,7 @@ class Classify extends Base
             'Model'      =>  'Classify'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->changeClassify(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->changeClassify(Request::param());
     }
 
     public function del ()

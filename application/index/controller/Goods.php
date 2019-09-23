@@ -1,29 +1,28 @@
 <?php
 namespace app\index\controller;
 
-use think\Loader;
-use think\Request;
+use think\Facade\Request;
 
 class Goods extends Base
 {
     public function list ()
     {
-        $respone = self::common([
+        $response = self::common([
             'Validate'   =>  'Goods.page',
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->showGoodsList(Request::instance()->param());
+        return $response['status'] ? $response['data']->showGoodsList(Request::param()) : $response['data'];
     }
 
     public function info ()
     {
-        $respone = self::common([
+        $response = self::common([
             'Validate'   =>  'Goods.change',
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->infoGoodsItem(Request::instance()->param());
+        return $response['status'] ? $response['data']->infoGoodsItem(Request::param()) : $response['data'];
     }
     
 }

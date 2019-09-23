@@ -1,8 +1,7 @@
 <?php
 namespace app\admin\controller;
 
-use think\Request;
-use think\Controller;
+use think\Facade\Request;
 
 class Upload extends Base
 {
@@ -15,7 +14,7 @@ class Upload extends Base
             if($file){
                 $info = $file->move(ROOT_PATH . '/public/' . DS . 'uploads');
                 if($info){
-                    return respone(Request::instance()->domain() . '/uploads/' . $info->getSaveName());
+                    return response(Request::domain() . '/uploads/' . $info->getSaveName());
                 }else{
                     return error($file->getError());
                 }
