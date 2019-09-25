@@ -13,18 +13,19 @@ class Index extends Base
             'Model'      =>  'Index'
         ]);
         $post = Request::param();
+
         if ($response['status']){
             $res = $response['data']->addGoodsItem($post);
-//            if (isset($post['image']) && $res){
-//                $file = request()->file('image');
-//                $url = Upload::upload_file($file);
-//                if ($url['status']==200){
-//                    $data['index_id'] = $res['id'];
-//                    $data['url'] = $url['data'];
-//                    $user = new Image();
-//                    $user->save($data);
-//                }
-//            }
+            if (request()->file('image')){
+                $arr = Upload::upload_file()->getData();
+                if ($arr['status']==200 && $res){
+                    $data['index_id'] = $res['id'];
+                    $data['url'] = $arr['data'];
+                    $user = new Image();
+                    $user->save($data);
+                }
+            }
+            return $res;
         }
         return $response['data'];
 

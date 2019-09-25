@@ -3,13 +3,13 @@ namespace app\admin\controller;
 
 class Upload extends Base
 {
-    public static function  upload_file ($file=null)
+    public static function  upload_file ()
     {
-//        $file = request()->file('image');
+        $file = request()->file('image');
         if ($file !== NULL) {
             $info = $file->move('./uploads');
             if($info){
-                return response( './uploads/'.$info->getSaveName());
+                return response( '/uploads/'.$info->getSaveName());
             }else{
                 return error($file->getError());
             }

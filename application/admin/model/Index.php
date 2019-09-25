@@ -44,12 +44,10 @@ class Index extends Model
      * 添加商品
      */
     function addGoodsItem ($data) {
-        $result = $this->save($data);
-
+        $result = $this->create($data);
         if ($result) {
             return $result;
         }
-
         return error(201, '添加失败!');
     }
 
