@@ -34,7 +34,7 @@ class Goods extends Base
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->addGoodsItem(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->addGoodsItem(Request::param());
 
     }
 
@@ -45,7 +45,7 @@ class Goods extends Base
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->changeGoodsItem(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->changeGoodsItem(Request::param());
     }
 
     public function del ()
@@ -55,7 +55,7 @@ class Goods extends Base
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->deleteGoodsItem(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->deleteGoodsItem(Request::param());
     }
 
     public function up ()
@@ -65,6 +65,6 @@ class Goods extends Base
             'Model'      =>  'Goods'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->upGoodsItem(Request::instance()->param());
+        return false === $respone['status'] ? $respone['data'] : $respone['data']->upGoodsItem(Request::param());
     }
 }

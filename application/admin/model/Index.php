@@ -3,9 +3,9 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Goods extends Model
+class Index extends Model
 {
-    protected $autoWriteTimestamp = 'datetime';
+    protected $autoWriteTimestamp = true;
     protected $updateTime = 'update_time';
     protected $createTime = 'create_time';
     /**
@@ -16,9 +16,6 @@ class Goods extends Model
         $result = $this->where(['id'   =>  $data['id']])->find();
 
         if ($result) {
-            if ($result['picture']){
-                $result['picture'] = request()->domain(). $result['picture'];
-            }
             return response($result);
         }
         
@@ -37,11 +34,6 @@ class Goods extends Model
         $result = $this->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
 
         if ($result) {
-            foreach ($result as $k=>$v){
-                if ($v['picture']){
-                    $result[$k]['picture'] = request()->domain(). $v['picture'];
-                }
-            }
             return response($result);
         }
 
@@ -52,13 +44,13 @@ class Goods extends Model
      * 添加商品
      */
     function addGoodsItem ($data) {
-        $result = $this->insert($data);
+        $result = $this->save($data);
 
         if ($result) {
-            return response($result);
+            return $result;
         }
 
-        return error(201, '产品添加失败!');
+        return error(201, '添加失败!');
     }
 
     /**

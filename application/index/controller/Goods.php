@@ -5,7 +5,7 @@ use think\Facade\Request;
 
 class Goods extends Base
 {
-    public function list ()
+    public function lists ()
     {
         $response = self::common([
             'Validate'   =>  'Goods.page',

@@ -2,6 +2,7 @@
 namespace app\index\model;
 
 use think\Model;
+use think\Request;
 
 class Goods extends Model
 {
@@ -16,6 +17,9 @@ class Goods extends Model
         $result = $this->where(['id'   =>  $data['id']])->find();
 
         if ($result) {
+            if ($result['picture']){
+                $result['picture'] = request()->domain(). $result['picture'];
+            }
             return response($result);
         }
         
@@ -26,9 +30,14 @@ class Goods extends Model
      * 获取商品列表
      */
     function showGoodsList ($data) {
-        $result = $this->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
+        $result = $this->where('status=1')->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
 
         if ($result) {
+            foreach ($result as $k=>$v){
+                if ($v['picture']){
+                    $result[$k]['picture'] = request()->domain(). $v['picture'];
+                }
+            }
             return response($result);
         }
 
