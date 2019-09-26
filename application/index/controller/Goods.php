@@ -24,5 +24,14 @@ class Goods extends Base
 
         return $response['status'] ? $response['data']->infoGoodsItem(Request::param()) : $response['data'];
     }
+
+    public function category ()
+    {
+        $response = self::common([
+            'Model'      =>  'Classify'
+        ]);
+
+        return $response['status'] ? $response['data']->showCategoryList(Request::param()) : $response['data'];
+    }
     
 }

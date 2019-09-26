@@ -12,7 +12,7 @@ class Base extends Controller
         $post = Request::param();
 
         $validate = true;
-        if ($params['Validate']){
+        if (isset($params['Validate'])){
             $validate = $this->validate($post, $params['Validate']);
         }
 
