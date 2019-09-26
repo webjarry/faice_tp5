@@ -59,7 +59,7 @@ class Index extends Model
         $result = $this->where(['id' =>  $data['id']])->update($data);
 
         if ($result) {
-            return response();
+            return response($result);
         }
         
         return error(201, '产品更新失败，产品不存在或者没有更新任何内容!');
