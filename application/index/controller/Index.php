@@ -9,14 +9,14 @@ class Index extends Base
         return view();
     }
     
-    public function show ()
+    public function lists ()
     {
-        $respone = self::common([
-            'Validate'   =>  'Index.page',
+        $response = self::common([
+            'Validate'   =>  'Index.type',
             'Model'      =>  'Index'
         ]);
 
-        return false === $respone['status'] ? $respone['data'] : $respone['data']->show(Request::param());
+        return false === $response['status'] ? $response['data'] : $response['data']->lists(Request::param());
     }
 
 }
