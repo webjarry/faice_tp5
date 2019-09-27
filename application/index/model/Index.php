@@ -12,14 +12,14 @@ class Index extends Model
     /**
      * 获取商品详情
      */
-    function lists ($data=[]) {
+    function lists ($data) {
         $result = $this->where('type',$data['type'])->select();
 
         if ($result) {
             foreach ($result as $k=>$v){
                 $img = new Image();
                 $image = $img->where('index_id',$v['id'])->select();
-                if ($image){
+                if (!empty($image->toArray())){
                     $result[$k]['picture'] = request()->domain(). $image[0]['url'];
                 }
             }
