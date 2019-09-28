@@ -18,7 +18,7 @@ class Index extends Base
             $res = $response['data']->addGoodsItem($post);
             if (request()->file('image') && $res){
                 $arr = Upload::upload_file(request()->file('image'))->getData();
-                if ($arr['status']==200 && $res){
+                if ($arr['status']==200){
                     $data['index_id'] = $res['id'];
                     $data['url'] = $arr['data'];
                     $user = new Image();
@@ -26,17 +26,20 @@ class Index extends Base
                 }
             }
             if (request()->file('images') && $res){
-                $arr = Upload::upload_file()->getData();
-                if ($arr['status']==200 && $res){
-                    $data['index_id'] = $res['id'];
-                    $data['url'] = $arr['data'];
-                    $user = new Image();
-                    $user->save($data);
+                $arr = request()->file('images');
+                foreach ($arr as $k=>$v){
+                    $arr = Upload::upload_file($v)->getData();
+                    if ($arr['status']==200){
+                        $data['index_id'] = $res['id'];
+                        $data['url'] = $arr['data'];
+                        $user = new Image();
+                        $user->save($data);
+                    }
                 }
             }
             if (request()->file('move') && $res){
                 $arr = Upload::upload_file()->getData();
-                if ($arr['status']==200 && $res){
+                if ($arr['status']==200){
                     $data['index_id'] = $res['id'];
                     $data['url'] = $arr['data'];
                     $data['type'] = 1;
@@ -64,9 +67,28 @@ class Index extends Base
                 $img = $user->where('index_id='.$post['id'])->find();
                 unlink('.'.$img['url']);
                 $arr = Upload::upload_file()->getData();
-                if ($arr['status']==200 && $res){
+                if ($arr['status']==200){
                     $data['url'] = $arr['data'];
                     $user->where('index_id='.$post['id'])->update($data);
+                }
+            }
+            if (request()->file('images') && $res){
+                $user = new Image();
+                $img = $user->where('index_id='.$post['id'])->select();
+                foreach ($img as $k=>$v){
+                    unlink('.'.$v['url']);
+                }
+                $user->where('index_id='.$post['id'])->delete();
+
+                $arr = request()->file('images');
+                foreach ($arr as $k=>$v){
+                    $arr = Upload::upload_file($v)->getData();
+                    if ($arr['status']==200){
+                        $data['index_id'] = $post['id'];
+                        $data['url'] = $arr['data'];
+                        $user = new Image();
+                        $user->save($data);
+                    }
                 }
             }
             if (request()->file('move') && $res){
@@ -74,7 +96,7 @@ class Index extends Base
                 $img = $user->where('index_id='.$post['id'])->find();
                 unlink('.'.$img['url']);
                 $arr = Upload::upload_file()->getData();
-                if ($arr['status']==200 && $res){
+                if ($arr['status']==200){
                     $data['url'] = $arr['data'];
                     $user->where('index_id='.$post['id'])->update($data);
                 }

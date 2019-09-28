@@ -16,8 +16,9 @@ class Upload extends Base
         return error(201, '请选择需要上传的图片文件!');
     }
 
-    public static function  upload_files ($files)
+    public static function  upload_files ()
     {
+        $files = request()->file('images');
         if ($files !== NULL) {
             $info = $files->move('./uploads');
             if($info){
