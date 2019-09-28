@@ -10,9 +10,6 @@ class Index extends Base
             'Validate'   =>  'Index.type',
             'Model'      =>  'Index'
         ]);
-//        var_dump($response['data']);
-//        die;
-
         return false === $response['status'] ? $response['data'] : $response['data']->lists(Request::param());
     }
 

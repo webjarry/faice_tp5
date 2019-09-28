@@ -8,36 +8,41 @@ class Index extends Model
     protected $autoWriteTimestamp = true;
     protected $updateTime = 'update_time';
     protected $createTime = 'create_time';
+
     /**
      * 获取商品列表
      */
-    function infoGoodsItem ($data) {
+    public function lists ($data) {
+        $result = $this->where('type',$data['type'])->select();
 
-        $result = $this->where(['id'   =>  $data['id']])->find();
 
         if ($result) {
+            $http = request()->domain();
+            foreach ($result as &$v){
+                $img = new Image();
+                // 图片
+                $image = $img->where('index_id',$v['id'])->where('type',0)->select();
+//                if ($count != 0){
+//                    $v['pictures'] = array_map(function ($img) {
+//                        return request()->domain(). $img['url'];
+//                    }, $image->toArray());
+                foreach ($image as $k1=>$v1){
+                    $image[$k1] = $http. $v1['url'];
+                }
+                $v['pictures'] = $image;
+//                }
+                // 视频
+                $move = $img->where('index_id',$v['id'])->where('type',1)->select()->toArray();
+                $count1 = count($move);
+                $v['move'] = '';
+                if ($count1 != 0){
+                    $v['move'] = $http. $move[0]['url'];
+                }
+            }
             return response($result);
         }
-        
+
         return error(201, '没有查询到该商品!');
-    }
-    
-    /**
-     * 获取商品列表
-     */
-    function showGoodsList ($data) {
-
-        $map = [
-            'status'    =>  1
-        ];
-        
-        $result = $this->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
-
-        if ($result) {
-            return response($result);
-        }
-
-        return error();
     }
 
     /**
@@ -73,6 +78,7 @@ class Index extends Model
         $result = $this->where(['id'   =>  $data['id']])->update(['status' => 0]);
 
         if ($result) {
+
             return response(null, '产品删除成功!');
         }
         

@@ -40,6 +40,7 @@ class Goods extends Validate
         'create_time'     =>  'require',
         // 产品状态
         'status'     =>  'require',
+        'classify'     =>  'require'
     ];
 
     protected $message = [
@@ -56,13 +57,15 @@ class Goods extends Validate
         'method.require'  =>  '请输入您的产品的使用方法!',
         'ingredient.require'  =>  '请输入您的产品的核心成分!',
         'picture.require'  =>  '请上传您的产品主图!',
-        'price.require'  =>  '请输入您的产品价格!'
+        'price.require'  =>  '请输入您的产品价格!',
+        'classify.require'  =>  '请选择分类!'
     ];
 
     protected $scene = [
         'add' =>  ['name', 'english', 'subtitle', 'format', 'texture', 'summary', 'crowd', 'method', 'ingredient', 'picture', 'price'],
         'change' =>  ['id'],
-        'page'  =>  ['page', 'pagenumber']
+        'page'  =>  ['page', 'pagenumber'],
+        'cate'  =>  ['classify','page', 'pagenumber'],
     ];
 
 }

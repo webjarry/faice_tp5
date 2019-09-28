@@ -33,5 +33,15 @@ class Goods extends Base
 
         return $response['status'] ? $response['data']->showCategoryList(Request::param()) : $response['data'];
     }
+
+    public function cate_list ()
+    {
+        $response = self::common([
+            'Validate'   =>  'Goods.cate',
+            'Model'      =>  'Goods'
+        ]);
+
+        return $response['status'] ? $response['data']->showGoodsLists(Request::param()) : $response['data'];
+    }
     
 }

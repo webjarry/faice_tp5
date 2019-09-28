@@ -13,14 +13,30 @@ class Index extends Model
      * 获取商品详情
      */
     function lists ($data) {
-        $result = $this->where('type',$data['type'])->select();
+        $result = $this->where('type',$data['type'])->where('status',1)->select();
+
 
         if ($result) {
-            foreach ($result as $k=>$v){
+            $http = request()->domain();
+            foreach ($result as &$v){
                 $img = new Image();
-                $image = $img->where('index_id',$v['id'])->select();
-                if (!empty($image->toArray())){
-                    $result[$k]['picture'] = request()->domain(). $image[0]['url'];
+                // 图片
+                $image = $img->where('index_id',$v['id'])->where('type',0)->select();
+//                if ($count != 0){
+//                    $v['pictures'] = array_map(function ($img) {
+//                        return request()->domain(). $img['url'];
+//                    }, $image->toArray());
+                    foreach ($image as $k1=>$v1){
+                        $image[$k1] = $http. $v1['url'];
+                    }
+                    $v['pictures'] = $image;
+//                }
+                // 视频
+                $move = $img->where('index_id',$v['id'])->where('type',1)->select()->toArray();
+                $count1 = count($move);
+                $v['move'] = '';
+                if ($count1 != 0){
+                    $v['move'] = $http. $move[0]['url'];
                 }
             }
             return response($result);
