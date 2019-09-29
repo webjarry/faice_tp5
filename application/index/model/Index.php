@@ -4,6 +4,8 @@ namespace app\index\model;
 use think\Model;
 use app\admin\model\Image;
 
+use app\admin\model\Images;
+
 class Index extends Model
 {
     protected $autoWriteTimestamp = true;
@@ -12,7 +14,7 @@ class Index extends Model
     /**
      * 获取商品详情
      */
-    function lists ($data) {
+    public function lists ($data) {
         $result = $this->where('type',$data['type'])->where('status',1)->select();
 
 
@@ -44,6 +46,22 @@ class Index extends Model
         
         return error(201, '没有查询到该商品!');
     }
-    
+
+    public function images ($data) {
+        $http = request()->domain();
+        $images = new Images();
+        $result = $images->where('type',$data['type'])->select();
+        if ($result) {
+            $http = request()->domain();
+            foreach ($result as $k=>$v){
+                if ($v['url']){
+                    $result[$k]['url'] = $http.$v['url'];
+                }
+            }
+            return response($result);
+        }
+
+        return error(201, '没有查询到该商品!');
+    }
 
 }

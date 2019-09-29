@@ -13,4 +13,12 @@ class Index extends Base
         return false === $response['status'] ? $response['data'] : $response['data']->lists(Request::param());
     }
 
+    public function images ()
+    {
+        $response = self::common([
+            'Model'      =>  'Index'
+        ]);
+        return false === $response['status'] ? $response['data'] : $response['data']->images(Request::param());
+    }
+
 }
