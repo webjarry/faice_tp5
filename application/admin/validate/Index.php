@@ -24,7 +24,7 @@ class Index extends Validate
     ];
 
     protected $scene = [
-        'add' =>  [ 'content'],
+        'add' =>  [ ''],
         'change' =>  ['id'],
     ];
 
