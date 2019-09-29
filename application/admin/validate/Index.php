@@ -13,19 +13,24 @@ class Index extends Validate
         // 副标题
         'title1'      =>  'require',
         // 内容
-        'content'    =>  'require'
+        'content'    =>  'require',
+        'type'    =>  'require'
+
     ];
 
     protected $message = [
         'id.require'  =>  '请选择您要操作的商品',
         'title.require'   =>  '请输入您的标题名称',
         'title1.require'   =>  '请输入您的副标题名称',
-        'content.require'  =>  '请输入您的产品内容!'
+        'content.require'  =>  '请输入您的产品内容!',
+        'type.require'  =>  '请输入您的产品内容!'
+
     ];
 
     protected $scene = [
         'add' =>  [ ''],
         'change' =>  ['id'],
+        'type' =>  ['type'],
     ];
 
 }

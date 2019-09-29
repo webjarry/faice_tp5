@@ -44,4 +44,22 @@ class Goods extends Model
         return error(201, '没有查询到该商品!');
     }
 
+    /**
+     * 获取商品列表
+     */
+    function showGoodsLists ($data) {
+        $result = $this->where('status=1')->where('classify',$data['classify'])->field('id, name, subtitle, english, picture, status')->paginate($data['pagenumber'], $data['page']);
+
+        if ($result) {
+            foreach ($result as $k=>$v){
+                if ($v['picture']){
+                    $result[$k]['picture'] = request()->domain(). $v['picture'];
+                }
+            }
+            return response($result);
+        }
+
+        return error(201, '没有查询到该商品!');
+    }
+
 }
