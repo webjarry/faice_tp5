@@ -10,7 +10,7 @@ class Upload extends Base
         if ($file !== NULL) {
             $info = $file->move('./uploads');
             if($info){
-                return response( '/uploads/'.$info->getSaveName());
+                return response( '/uploads/'.str_replace("\\","/",$info->getSaveName()));
             }else{
                 return error($file->getError());
             }
@@ -24,7 +24,7 @@ class Upload extends Base
         if ($files !== NULL) {
             $info = $files->move('./uploads');
             if($info){
-                return response( '/uploads/'.$info->getSaveName());
+                return response( '/uploads/'.str_replace("\\","/",$info->getSaveName()));
             }else{
                 return error($files->getError());
             }
@@ -40,7 +40,7 @@ class Upload extends Base
             $info = $files->move('./uploads');
             if($info){
                 $image = new Images();
-                $post['url'] = '/uploads/'.$info->getSaveName();
+                $post['url'] = '/uploads/'.str_replace("\\","/",$info->getSaveName());
                 $res = $image->save($post);
                 return response($res);
             }else{
@@ -62,7 +62,7 @@ class Upload extends Base
                 $img = $image->where('id='.$post['id'])->find();
                 unlink('.'.$img['url']);
 
-                $post['url'] = '/uploads/'.$info->getSaveName();
+                $post['url'] = '/uploads/'.str_replace("\\","/",$info->getSaveName());
                 $res = $image->where('id',$post['id'])->save();
 
                 return response($res);
